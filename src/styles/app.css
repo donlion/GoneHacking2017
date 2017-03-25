@@ -3,4 +3,12 @@
 }
 
 html, body {
+    margin: 0;
+}
+
+
+.content {
+    margin: 30px auto;
+    width: 100%;
+    max-width: 768px;
 }
