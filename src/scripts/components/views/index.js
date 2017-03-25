@@ -1,25 +1,45 @@
 import React, {Component} from 'react';
 import {
-    StaticRouter as Router,
-    Route
-} from 'react-router-dom';
+    Router,
+    Route,
+    browserHistory
+} from 'react-router';
+import isClient from '../../utilities/isClient';
 // Components
-import Home from './Home';
+import SignIn from './SignIn';
 import SignUp from './SignUp';
-
-const context = {};
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 export default class View extends Component {
 
-    render() {
+    get getViews() {
+
+        console.log({isClient});
+
+        if (!isClient) {
+            return null;
+        }
+
         return (
-            <Router
-                location={'/'}
-                context={context}>
-                <Route
-                    path={'/'}
-                    component={SignUp} />
+            <Router history={browserHistory}>
+                <ReactCSSTransitionGroup
+                    transitionName="fade"
+                    transitionEnterTimeout={300}
+                    transitionLeaveTimeout={300}>
+                    <Route
+                        path={'/signup'}
+                        component={SignUp} />
+                    <Route
+                        path={'/'}
+                        component={SignIn} />
+                </ReactCSSTransitionGroup>
             </Router>
         );
+    }
+
+    render() {
+        const {getViews} = this;
+
+        return getViews;
     }
 }

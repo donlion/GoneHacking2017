@@ -20,7 +20,9 @@ export default class App extends Component {
         return (
             <MuiThemeProvider muiTheme={MuiTheme}>
                 <div>
-                    <AppBar title="CancerMate" />
+                    <AppBar
+                        showMenuIconButton={false}
+                        title="CancerMate" />
 
                     <div className="content">
                         <View />
