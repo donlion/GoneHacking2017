@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import goto from '../../utilities/goto';
+import {setStore} from '../../utilities/store';
 // Components
-import {Card, CardHeader} from 'material-ui/Card';
 import {List, ListItem} from 'material-ui/List';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -36,8 +36,12 @@ export default class SignUp extends Component {
     signUp() {
         console.log('sign up');
 
+        setStore({
+            signedUp: true
+        });
+
         setTimeout(() => {
-            goto('/dashboard');
+            goto('/');
         }, 1000);
     }
 
@@ -51,41 +55,39 @@ export default class SignUp extends Component {
             return getRedirect;
         }
 
+        console.log({props: this.props});
+
         return (
             <div>
-                <Card style={{
-                    maxWidth: 320,
-                    margin: '0 auto'
-                }}>
-                    <CardHeader style={{fontWeight: 'bold'}} title="Sign up"/>
-                    <List>
-                        <ListItem disabled={true}>
-                            <TextField
-                                fullWidth={true}
-                                floatingLabelText="Name"
-                                name={'name'} />
-                        </ListItem>
-                        <ListItem disabled={true}>
-                            <TextField
-                                fullWidth={true}
-                                floatingLabelText="Email"
-                                name={'email'} />
-                        </ListItem>
-                        <ListItem disabled={true}>
-                            <TextField
-                                fullWidth={true}
-                                floatingLabelText="Password"
-                                type="password"
-                                name={'password'} />
-                        </ListItem>
-                        <ListItem disabled={true}>
-                            <RaisedButton
-                                label="Sign up"
-                                fullWidth={true}
-                                onClick={signUp} />
-                        </ListItem>
-                    </List>
-                </Card>
+                <h1 className="header">Sign up</h1>
+
+                <List>
+                    <ListItem disabled={true}>
+                        <TextField
+                            fullWidth={true}
+                            floatingLabelText="Name"
+                            name={'name'} />
+                    </ListItem>
+                    <ListItem disabled={true}>
+                        <TextField
+                            fullWidth={true}
+                            floatingLabelText="Email"
+                            name={'email'} />
+                    </ListItem>
+                    <ListItem disabled={true}>
+                        <TextField
+                            fullWidth={true}
+                            floatingLabelText="Password"
+                            type="password"
+                            name={'password'} />
+                    </ListItem>
+                    <ListItem disabled={true}>
+                        <RaisedButton
+                            label="Sign up"
+                            fullWidth={true}
+                            onClick={signUp} />
+                    </ListItem>
+                </List>
             </div>
         );
     }

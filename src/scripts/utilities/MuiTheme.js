@@ -5,7 +5,11 @@ import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 
 const MuiTheme = getMuiTheme(merge(lightBaseTheme, {
     palette: {
-        primary1Color: '#ab83ad'
+        primary1Color: '#e71422'
+    },
+    appBar: {
+        textColor: '#e71422',
+        color: '#ffffff'
     }
 }));
 

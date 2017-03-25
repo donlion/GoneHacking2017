@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import goto from '../../utilities/goto';
+import {setStore} from '../../utilities/store';
 // Components
-import {Card, CardHeader} from 'material-ui/Card';
 import {List, ListItem} from 'material-ui/List';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -15,9 +15,14 @@ export default class Home extends Component {
 
         this.signIn = this.signIn.bind(this);
         this.signUp = this.signUp.bind(this);
+
     }
 
     signIn() {
+        setStore({
+            signedIn: true
+        });
+
         return goto('/dashboard');
     }
 
@@ -32,13 +37,11 @@ export default class Home extends Component {
         } = this;
 
         return (
-            <Card
-                style={{
-                    maxWidth: 320,
-                    margin: '0 auto'
-                }}
-                ref={c => this.references.card = c}>
-                <CardHeader title="Sign in"/>
+            <div ref={c => this.references.container = c}>
+                <div className={'logo'}>
+                    <img src={'/static/logo.png'}/>
+                </div>
+
                 <List>
                     <ListItem disabled={true}>
                         <TextField
@@ -57,7 +60,8 @@ export default class Home extends Component {
                         <RaisedButton
                             label="Sign in"
                             fullWidth={true}
-                            onClick={signIn}/>
+                            onClick={signIn}
+                            primary={true}/>
                     </ListItem>
                     <ListItem disabled={true}>
                         <FlatButton
@@ -66,7 +70,7 @@ export default class Home extends Component {
                             fullWidth={true} />
                     </ListItem>
                 </List>
-            </Card>
+            </div>
         );
     }
 }
