@@ -20,7 +20,10 @@ export default class Home extends Component {
 
     signIn() {
         setStore({
-            signedIn: true
+            signedIn: true,
+            authedUser: {
+             name: 'Walter'
+            }
         });
 
         return goto('/dashboard');

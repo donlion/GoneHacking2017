@@ -6,7 +6,6 @@
 
 html, body {
     margin: 0;
-    color: #fff;
     background-color: #fff;
     font-family: 'Roboto', Lato, Open Sans, sans-serif;
 }
@@ -45,11 +44,19 @@ html, body {
 }
 
 .header {
+    font-family: 'Circle', 'Roboto', Lato, Open Sans, sans-serif;
     font-weight: bold;
     color: #e71422;
-    font-size: 48px;
-    text-align: center;
+    font-size: 36px;
+    text-align: left;
     padding: 0 15px;
+}
+
+.pickLink {
+    font-size: 14px;
+    color: #e71422;
+    text-decoration: none;
+    font-family: 'Circle', 'Roboto', Lato, Open Sans, sans-serif;
 }
 
 /* Change Autocomplete styles in Chrome*/
@@ -78,3 +85,7 @@ select:-webkit-autofill:focus {
   opacity: 1;
   transition: opacity 250ms ease-in;
 }
+
+
+@import './lifelines.css';
+@import './fonts.css';

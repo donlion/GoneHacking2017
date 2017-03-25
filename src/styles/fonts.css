@@ -1,0 +1,25 @@
+@font-face {
+    font-family: 'Circle';
+    font-weight: normal;
+    font-style: normal;
+    src: url("/static/CircularStd-Book.otf");
+}
+@font-face {
+    font-family: 'Circle';
+    font-weight: normal;
+    font-style: italic;
+    src: url("/static/CircularStd-BookItalic.otf");
+}
+
+@font-face {
+    font-family: 'Circle';
+    font-weight: bold;
+    font-style: normal;
+    src: url("/static/CircularStd-Bold.otf");
+}
+@font-face {
+    font-family: 'Circle';
+    font-weight: bold;
+    font-style: italic;
+    src: url("/static/CircularStd-BoldItalic.otf");
+}

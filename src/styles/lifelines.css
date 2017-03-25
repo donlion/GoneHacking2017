@@ -1,0 +1,43 @@
+.lifelinesGroup {
+    width: calc(100% - 30px);
+    padding: 15px 20px;
+    border: 2px solid rgb(235,235,235);
+    border-radius: 5px;
+    margin: 15px;
+}
+
+.lifelinesHeader {
+    display: block;
+    font-weight: normal;
+    font-size: 24px;
+    color: #e71422;
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.lifelinesSubheader {
+    display: block;
+    color: #797979;
+    font-size: 16px;
+    margin: 0;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+.lifelines {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0;
+}
+
+.lifeline {
+    display: inline-block;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin-right: 10px;
+    border: 1px solid #f00;
+    padding: 5px;
+    border-radius: 1px;
+}

@@ -66,7 +66,7 @@ const STYLES = {
  * @type {{src, dist}}
  */
 const STATIC = {
-    src: path.join(PATHS.src, 'static/*.*'),
+    src: path.join(PATHS.src, 'static/**/*.*'),
     dist: path.join(PATHS.dist, 'static')
 };
 
