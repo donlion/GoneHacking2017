@@ -111,15 +111,14 @@ export default class LifeLine extends Component {
                                 leftAvatar={<Avatar src={lifeLine.user.image} />}
                                 rightIconButton={
                                     (!lifeLine.done && (
-                                        <a
-                                           href="#"
+                                        <span
                                            className="pickLink"
                                            style={{
                                                top: 22,
                                                right: 10
                                            }}>
                                             Accept
-                                        </a>
+                                        </span>
                                     ))
                                     || (
                                         <span
