@@ -38,7 +38,7 @@ export default class App extends Component {
     componentDidMount() {
         const {updateState} = this;
 
-        store.subscribe(newState => this.setState(newState));
+        store.subscribe('app', newState => this.setState(newState));
     }
 
     get getViews() {

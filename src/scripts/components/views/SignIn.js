@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import goto from '../../utilities/goto';
 import {setStore} from '../../utilities/store';
+import {post} from '../../utilities/request';
 // Components
 import {List, ListItem} from 'material-ui/List';
 import TextField from 'material-ui/TextField';
@@ -19,14 +20,26 @@ export default class Home extends Component {
     }
 
     signIn() {
-        setStore({
-            signedIn: true,
-            authedUser: {
-             name: 'Walter'
-            }
-        });
+        const {form} = this.references;
 
-        return goto('/dashboard');
+        return post('/login', {
+            email: form.email.value
+        }).then(res => {
+            let {
+                email,
+                name
+            } = res.data.data;
+
+            setStore({
+                signedIn: true,
+                authedUser: {
+                    name,
+                    email
+                }
+            });
+
+            return goto('/dashboard');
+        });
     }
 
     signUp() {
@@ -40,7 +53,7 @@ export default class Home extends Component {
         } = this;
 
         return (
-            <div ref={c => this.references.container = c}>
+            <form ref={c => this.references.form = c}>
                 <div className={'logo'}>
                     <img src={'/static/logo.png'}/>
                 </div>
@@ -73,7 +86,7 @@ export default class Home extends Component {
                             fullWidth={true} />
                     </ListItem>
                 </List>
-            </div>
+            </form>
         );
     }
 }

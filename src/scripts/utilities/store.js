@@ -6,20 +6,7 @@ import merge from './merge';
  */
 let store = {
     signedIn: false,
-    lifeLines: [
-        {
-            name: 'Cooking',
-            helper: 'Walter White Jr.'
-        },
-        {
-            name: 'Cooking',
-            helper: 'Skyler White'
-        },
-        {
-            name: 'Cleaning',
-            helper: 'Skyler White'
-        }
-    ]
+    lifeLines: {}
 };
 
 /**
@@ -27,24 +14,30 @@ let store = {
  * @param newStore
  */
 export const setStore = newStore => {
-    store = merge(store, newStore);
-    updatedStore(store);
+    (global.requestAnimationFrame || function(){})(() => {
+        store = merge(store, newStore);
+        updatedStore(store);
+    });
 };
 
 /**
  * @name subscribers
  * @type {Array}
  */
-let subscribers = [];
+let subscribers = {};
 
 /**
  * @name subscribe
  * @param fn
  * @returns {*}
  */
-export const subscribe = fn => {
-    subscribers = subscribers.concat(fn);
+export const subscribe = (name, fn) => {
+    subscribers.name = fn;
     return fn(store);
+};
+
+export const unsubscribe = name => {
+    delete subscribers.name;
 };
 
 /**
@@ -52,9 +45,11 @@ export const subscribe = fn => {
  * @param store
  */
 const updatedStore = store => {
-    subscribers.forEach(subscriber => {
-        subscriber(store);
-    });
+    Object.keys(subscribers)
+        .forEach(key => {
+            let subscriber = subscribers[key];
+            subscriber(store);
+        });
 };
 
 /**
@@ -70,5 +65,6 @@ export const getStore = {
 export default {
     store: getStore.getStore,
     setStore,
-    subscribe
+    subscribe,
+    unsubscribe
 };

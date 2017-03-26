@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
 import goto from '../../utilities/goto';
-import {subscribe, setStore} from '../../utilities/store';
+import {
+    subscribe,
+    unsubscribe,
+    setStore
+} from '../../utilities/store';
+import {post} from '../../utilities/request';
+import getPath from 'lodash/get';
 // Components
 import Avatar from 'material-ui/Avatar';
 import {List, ListItem} from 'material-ui/List';
@@ -26,19 +32,33 @@ export default class SignUp extends Component {
     }
 
     componentDidMount() {
-        subscribe(state => this.setState(state));
+        subscribe('signup', state => this.setState(state));
+    }
+
+    componentWillUnmount() {
+        unsubscribe('signup');
     }
 
     signUp() {
         const {form} = this.references;
 
-        setStore({
-            signedUp: true,
-            newUser: {
-                name: form.name.value,
-                email: form.email.value,
-                password: form.password.value
+        return post('/users', {
+            name: form.name.value,
+            email: form.email.value
+        }).then(res => {
+            let data = get(res, 'data.data');
+
+            if (!data) {
+                return null;
             }
+
+            setStore({
+                signedUp: true,
+                newUser: {
+                    name: data.name,
+                    email: data.email
+                }
+            });
         });
     }
 
