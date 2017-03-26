@@ -3,6 +3,7 @@ import goto from '../../utilities/goto';
 import store, {setStore} from '../../utilities/store';
 import {get} from '../../utilities/request';
 import getPath from 'lodash/get';
+import {Route} from 'react-router';
 // Components
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -60,13 +61,14 @@ export default class Dashboard extends Component {
         }
 
         let lifeLinesArray = Object.keys(lifeLines).map(key => lifeLines[key]);
-        
+
         if (!lifeLinesLoaded || !lifeLinesArray.length) {
             return null;
         }
 
         let groups = TYPES.map(type => {
             return {
+                key: type.key,
                 name: type.name,
                 lifeLines: [].concat(lifeLinesArray).filter(lifeLine => lifeLine.name === type.key)
             };
@@ -86,7 +88,7 @@ export default class Dashboard extends Component {
                                     <li
                                         key={index}
                                         className="lifeline">
-                                        <img src={`https://api.adorable.io/avatars/90/${lifeLine.user.email}`} />
+                                        <img src={`${lifeLine.user.image}`} />
                                     </li>
                                 ))}
                             </ul>
@@ -94,7 +96,8 @@ export default class Dashboard extends Component {
                             <div>
                                 <RaisedButton
                                     primary={true}
-                                    label="Pick"/>
+                                    label="Pick"
+                                    onClick={e => goto(`/dashboard/${group.key}`)}/>
                             </div>
                         </div>
                     </div>
@@ -127,8 +130,33 @@ export default class Dashboard extends Component {
         return null;
     }
 
+    get getPeople() {
+        const {lifeLines} = this.state;
+
+        if (!lifeLines) {
+            return [];
+        }
+
+        let lifeLinesArray = Object.keys(lifeLines).map(key => lifeLines[key]);
+
+        if (!lifeLinesArray.length) {
+            return [];
+        }
+
+        return lifeLinesArray.reduce((result, item) => {
+            console.log({result});
+            if (result.includes(item.user.name)) {
+                return result;
+            }
+
+            result = result.concat(item.user.name);
+
+            return result;
+        }, []);
+    }
+
     fetchLifeLines() {
-        let lifeLines = TYPES.map(type => {
+        return TYPES.map(type => {
             return get(`/lifelines?name=${type.key}`)
                 .then(res => {
                     let data = getPath(res, 'data');
@@ -139,7 +167,29 @@ export default class Dashboard extends Component {
                         return null;
                     }
 
-                    let lifeLines = data;
+                    let lifeLines = Object.keys(data)
+                        .reduce((result, id) => {
+                            let lifeLine = data[id];
+
+                            let userName = lifeLine.user.name.split(' ')[0].toLowerCase();
+                            if (userName === 'joe') {
+                                userName = 'saul';
+                            }
+
+                            if (lifeLine.user.name.includes('Jr.')) {
+                                userName = 'junior';
+                            }
+
+                            lifeLine = Object.assign({}, lifeLine, {
+                                user: Object.assign({}, lifeLine.user, {
+                                    image: `/static/avatars/${userName}.jpg`
+                                })
+                            });
+
+                            result[id] = lifeLine;
+
+                            return result;
+                        }, {});
 
                     console.log('got it', lifeLines);
 
@@ -155,14 +205,16 @@ export default class Dashboard extends Component {
         const {
             getList,
             getUser,
-            getLoading
+            getLoading,
+            getPeople
         } = this;
 
-        console.log({state: this.state});
+        console.log({getPeople});
 
         return (
             <div ref={c => this.references.container = c}>
                 <h1 className="header">Welcome {getUser.name}</h1>
+                <h2 className="subheader">{getPeople.length} people are here to assist you!</h2>
 
                 {getLoading || getList}
             </div>

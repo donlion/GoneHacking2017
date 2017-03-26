@@ -50,12 +50,17 @@ html, body {
     font-size: 36px;
     text-align: left;
     padding: 0 15px;
+    margin: 0;
+    margin-bottom: 5px;
 }
 
 .subheader {
     font-size: 16px;
     color: #797979;
     padding: 0 15px;
+    font-weight: normal;
+    margin: 0;
+    margin-bottom: 20px;
 }
 
 .pickLink {
@@ -63,6 +68,10 @@ html, body {
     color: #e71422;
     text-decoration: none;
     font-family: 'Circle', 'Roboto', Lato, Open Sans, sans-serif;
+}
+
+.positive {
+    color: #03DF86;
 }
 
 /* Change Autocomplete styles in Chrome*/

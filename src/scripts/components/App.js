@@ -18,6 +18,7 @@ import {
 import SignIn from './views/SignIn';
 import SignUp from './views/SignUp';
 import Dashboard from './views/Dashboard';
+import LifeLine from './views/LifeLine';
 // Theming
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MuiTheme from '../utilities/MuiTheme';
@@ -55,7 +56,8 @@ export default class App extends Component {
                             href="#"
                             onClick={e => {
                                 e.preventDefault();
-                                return goto('/');
+
+                                return global.history.go(-1);
                             }}
                             className="logo logo--header">
                             <img src={'/static/logo.png'}/>
@@ -67,13 +69,16 @@ export default class App extends Component {
                         <div>
                             <Route
                                 path={'/signup'}
-                                components={SignUp}/>
+                                component={SignUp}/>
+                            <Route
+                                path={'/dashboard/:lifeline'}
+                                component={LifeLine} />
                             <Route
                                 path={'/dashboard'}
-                                components={Dashboard}/>
+                                component={Dashboard}/>
                             <Route
                                 path={'/'}
-                                components={SignIn}/>
+                                component={SignIn}/>
                         </div>
                     </Router>
                 </div>

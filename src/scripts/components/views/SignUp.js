@@ -46,7 +46,7 @@ export default class SignUp extends Component {
             name: form.name.value,
             email: form.email.value
         }).then(res => {
-            let data = get(res, 'data.data');
+            let data = getPath(res, 'data.data');
 
             if (!data) {
                 return null;
