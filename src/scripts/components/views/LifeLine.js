@@ -92,14 +92,15 @@ export default class LifeLine extends Component {
     render() {
         const {
             getLifeLines,
-            pickLifeLine
+            pickLifeLine,
+            lifeLine
         } = this;
 
-        console.log('yo', this.lifeline);
+        let getGroup = TYPES.find(type => type.key === lifeLine);
 
         return (
             <div>
-                <h1 className="header"></h1>
+                <h1 className="header">{getGroup && getGroup.name}</h1>
                 <h2 className="subheader">{getLifeLines.length} people</h2>
 
                 <List>
